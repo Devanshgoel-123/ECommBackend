@@ -33,64 +33,64 @@ app.get("/", async (req, res) => {
     
 });
 
-app.post("/register", async(req,res)=>{
-  const email=req.body["email"]
-  const password=req.body['password']
-  const phone=req.body["phone"]
-  const name=req.body["name"]
+// app.post("/register", async(req,res)=>{
+//   const email=req.body["email"]
+//   const password=req.body['password']
+//   const phone=req.body["phone"]
+//   const name=req.body["name"]
   
-  try{
-    const response = await db.query("SELECT * FROM users WHERE email = ($1)", [email]);
-    if(response.rows.length ===0){
-      bcrypt.hash(password,saltRounds, async (err,hash)=>{
-        if(err){
-          console.log(err)
-        }else{
-          // await db.query("INSERT INTO users(email,password,phone,username) VALUES ($1,$2,$3,$4)",[email,hash,phone,name]);
-          res.send("Done the registration")
-        }
+//   try{
+//     // const response = await db.query("SELECT * FROM users WHERE email = ($1)", [email]);
+//     // if(response.rows.length ===0){
+//       bcrypt.hash(password,saltRounds, async (err,hash)=>{
+//         if(err){
+//           console.log(err)
+//         }else{
+//           // await db.query("INSERT INTO users(email,password,phone,username) VALUES ($1,$2,$3,$4)",[email,hash,phone,name]);
+//           res.send("Done the registration")
+//         }
         
-      })
-    }else{
-      res.send("Email is already Used")
-    }
-  }catch(err){
-       console.log(err);
-       res.status(500).send("Internal Server Error");
-  }  
-})
+//       })
+//     }else{
+//       res.send("Email is already Used")
+//     }
+//   }catch(err){
+//        console.log(err);
+//        res.status(500).send("Internal Server Error");
+//   }  
+// })
 
-app.post("/login",async  (req,res) =>{
-  try {
-    const userEmail = req.body["userEmail"];
-    const loginPassword = req.body["userPassword"];
+// app.post("/login",async  (req,res) =>{
+//   try {
+//     const userEmail = req.body["userEmail"];
+//     const loginPassword = req.body["userPassword"];
 
-    // const response = await db.query("SELECT * FROM users WHERE email = ($1)", [userEmail]);
+//     // const response = await db.query("SELECT * FROM users WHERE email = ($1)", [userEmail]);
 
-    if (response.rows.length > 0) {
-      const user = response.rows[0];
-      const storedPassword=user.password;
-      bcrypt.compare(loginPassword,storedPassword,(err,result)=>{
-        if(err){
-          console.log(err)
-        }else{
-          if(result){
-            const userId = user.user_id;
-            const userName = user.username;
-            res.send({ userId, userName });
-          }else{
-            res.send("Invalid Credentials");
-          }
-        }
-      })
-    } else {
-      res.send("User not found"); // Handle the case when the user is not found
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
-  }
-})
+//     if (response.rows.length > 0) {
+//       const user = response.rows[0];
+//       const storedPassword=user.password;
+//       bcrypt.compare(loginPassword,storedPassword,(err,result)=>{
+//         if(err){
+//           console.log(err)
+//         }else{
+//           if(result){
+//             const userId = user.user_id;
+//             const userName = user.username;
+//             res.send({ userId, userName });
+//           }else{
+//             res.send("Invalid Credentials");
+//           }
+//         }
+//       })
+//     } else {
+//       res.send("User not found"); // Handle the case when the user is not found
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send("Internal Server Error");
+//   }
+// })
 
 
 // app.post("/orders",async (req,res)=>{
