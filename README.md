@@ -42,3 +42,5 @@ VALUES
 ('images/21.jpg', 'Acer', 'Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin', 599, 0, 3, 599, 'Electronics'),
 ('images/22.jpg', 'Samsung', 'Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor (LC49HG90DMNXZA) – Super Ultrawide Screen QLED', 1000, 0, 2, 1000, 'Electronics'),
 ('images/23.jpg', 'Lyra', 'BIYLACLESEN Women\'s 3-in-1 Snowboard Jacket Winter Coats', 57, 0, 3, 57, 'Clothing');
+
+
