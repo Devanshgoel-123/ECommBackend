@@ -14,14 +14,14 @@ app.use(cors());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-const db = new pg.Client({
-  user:process.env.user,
-  host:process.env.host,
-  database:process.env.database,
-  password: process.env.DATABASE_PASSWORD,
-  port:process.env.port,
-});
-db.connect();
+// const db = new pg.Client({
+//   user:process.env.user,
+//   host:process.env.host,
+//   database:process.env.database,
+//   password: process.env.DATABASE_PASSWORD,
+//   port:process.env.port,
+// });
+// db.connect();
 
 
 app.get("/", async (req, res) => {
@@ -46,7 +46,7 @@ app.post("/register", async(req,res)=>{
         if(err){
           console.log(err)
         }else{
-          await db.query("INSERT INTO users(email,password,phone,username) VALUES ($1,$2,$3,$4)",[email,hash,phone,name]);
+          // await db.query("INSERT INTO users(email,password,phone,username) VALUES ($1,$2,$3,$4)",[email,hash,phone,name]);
           res.send("Done the registration")
         }
         
@@ -65,7 +65,7 @@ app.post("/login",async  (req,res) =>{
     const userEmail = req.body["userEmail"];
     const loginPassword = req.body["userPassword"];
 
-    const response = await db.query("SELECT * FROM users WHERE email = ($1)", [userEmail]);
+    // const response = await db.query("SELECT * FROM users WHERE email = ($1)", [userEmail]);
 
     if (response.rows.length > 0) {
       const user = response.rows[0];
@@ -93,28 +93,28 @@ app.post("/login",async  (req,res) =>{
 })
 
 
-app.post("/orders",async (req,res)=>{
-  const email=req.body['email']
-  const cardNumber=req.body['cardNumber']
-  const expiry=req.body["expiry"]
-  const cardHolderName=req.body["cardHolderName"]
-  const cvv=req.body["cvv"]
-  const address=req.body["address"]
-  const value=req.body["orderValue"]
-  const orderItems=req.body["bagItems"]
-  try{
-     const orderResult=await db.query("INSERT INTO orders (order_value) VALUES ($1) RETURNING order_id",[value]);
-     const orderId=orderResult.rows[0].order_id;
-      await orderItems.forEach((item) => {
-      const product_id=item.id
-      const quantity=item.quantity
-      db.query("INSERT INTO order_details (order_id,product_id,quantity) VALUES ($1,$2,$3)",[orderId,product_id,quantity]);
-    });
-  }
-  catch(err){
-    console.log(err)
-  }
-})
+// app.post("/orders",async (req,res)=>{
+//   const email=req.body['email']
+//   const cardNumber=req.body['cardNumber']
+//   const expiry=req.body["expiry"]
+//   const cardHolderName=req.body["cardHolderName"]
+//   const cvv=req.body["cvv"]
+//   const address=req.body["address"]
+//   const value=req.body["orderValue"]
+//   const orderItems=req.body["bagItems"]
+//   try{
+//      const orderResult=await db.query("INSERT INTO orders (order_value) VALUES ($1) RETURNING order_id",[value]);
+//      const orderId=orderResult.rows[0].order_id;
+//       await orderItems.forEach((item) => {
+//       const product_id=item.id
+//       const quantity=item.quantity
+//       db.query("INSERT INTO order_details (order_id,product_id,quantity) VALUES ($1,$2,$3)",[orderId,product_id,quantity]);
+//     });
+//   }
+//   catch(err){
+//     console.log(err)
+//   }
+// })
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
