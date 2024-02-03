@@ -1,4 +1,4 @@
-import express from "express";
+const express=require("express");
 import bodyParser from "body-parser";
 import pg from "pg";
 import cors from "cors";
@@ -29,8 +29,8 @@ app.get("/", async (req, res) => {
      const response=await db.query("SELECT * FROM users ")
      const users=response.rows;
      const items=result.rows;
-    res.send({items,users});
-
+    res.send("Hello");
+    
 });
 
 app.post("/register", async(req,res)=>{
