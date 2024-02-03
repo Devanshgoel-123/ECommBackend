@@ -25,10 +25,10 @@ app.use(express.static("public"));
 
 
 app.get("/", async (req, res) => {
-     const result=await db.query("SELECT * FROM items");
-     const response=await db.query("SELECT * FROM users ")
-     const users=response.rows;
-     const items=result.rows;
+    //  const result=await db.query("SELECT * FROM items");
+    //  const response=await db.query("SELECT * FROM users ")
+    //  const users=response.rows;
+    //  const items=result.rows;
     res.send("Hello");
     
 });
