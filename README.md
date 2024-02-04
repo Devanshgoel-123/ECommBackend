@@ -4,6 +4,8 @@ Run Commands
  npm install express cors pg body-parser nodemon bcrypt dotenv->
  nodemon index.js (Server starts at port 3000)
  ######################  SQL CODE #########################
+while using postgre remember to put your database,host,password,user and port otherwise application won't work.
+I would suggest you use pgAdmin to interact with postgre database
 
 CREATE TABLE items (
     id SERIAL PRIMARY KEY,
@@ -42,5 +44,26 @@ VALUES
 ('images/21.jpg', 'Acer', 'Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin', 599, 0, 3, 599, 'Electronics'),
 ('images/22.jpg', 'Samsung', 'Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor (LC49HG90DMNXZA) – Super Ultrawide Screen QLED', 1000, 0, 2, 1000, 'Electronics'),
 ('images/23.jpg', 'Lyra', 'BIYLACLESEN Women\'s 3-in-1 Snowboard Jacket Winter Coats', 57, 0, 3, 57, 'Clothing');
+  
+CREATE TABLE orders(
+    order_id SERIAL PRIMARY KEY,
+    order_value INTEGER NOT NULL,
+    order_date TIMESTAMP DEFAULT NOW()
+);
 
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username TEXT,
+    email TEXT,
+    password TEXT,
+    phone TEXT
+);
+
+CREATE TABLE order_details(
+  detail_id SERIAL PRIMARY KEY,
+  order_id INTEGER REFERENCES orders(order_id),
+  product_id INTEGER REFERENCES items(id),
+  quantity INTEGER NOT NULL,
+  user_id INTEGER REFERENCES users(user_id),
+);
 
