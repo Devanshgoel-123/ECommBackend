@@ -6,7 +6,7 @@ import bcrypt from "bcrypt";
 import env from "dotenv";
 env.config();
 const app = express();
-const port = process.env.PORT || 3000;
+const port =3000;
 const saltRounds=5;
 
 
@@ -15,11 +15,11 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 const db = new pg.Client({
-  user:process.env.user,
-  host:process.env.host,
-  database:process.env.database,
-  password: process.env.DATABASE_PASSWORD,
-  port:process.env.port,
+  user:"postgres",
+  host:"localhost",
+  database:"ECommerce",
+  password:"DevanshGoel123",
+  port:5434,
 });
 db.connect();
 
@@ -29,7 +29,7 @@ app.get("/", async (req, res) => {
      const response=await db.query("SELECT * FROM users ")
      const users=response.rows;
      const items=result.rows;
-    res.send("Hello");
+    res.send({items,users});
     
 });
 
