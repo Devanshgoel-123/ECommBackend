@@ -15,10 +15,10 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 const db = new pg.Client({
-  user:"postgres",
-  host:"localhost",
-  database:"ECommerce",
-  password:"DevanshGoel123",
+  user:process.env.user,
+  host:process.env.host,
+  database:process.env.database,
+  password:process.env.password,
   port:5434,
 });
 db.connect();
