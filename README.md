@@ -1,6 +1,6 @@
 go into the backend Folder
-Run Commands
- npm init->
+Run Command:
+npm i
  npm install express cors pg body-parser nodemon bcrypt dotenv->
  nodemon index.js (Server starts at port 3000)
  ######################  SQL CODE #########################
